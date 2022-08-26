@@ -1,0 +1,28 @@
+
+
+
+version: "3.8"
+services:
+  jupiter:
+    #image: kaiza/image-php74:latest
+    container_name: jupiter
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # args:
+      #   PHP_VERSION: ${VERSION-7.3}       
+    ipc: host       
+    ports:
+      - 8888:8888
+    volumes:
+      - workspace:/workspace
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+volumes:
+  workspace: 
